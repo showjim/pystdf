@@ -35,8 +35,8 @@ class TextWriter:
         self.stream = stream
         self.delimiter = delimiter
 
-    @staticmethod
-    def text_format(rectype, field_index, value):
+    # @staticmethod
+    def text_format(self, rectype, field_index, value):
         field_type = rectype.fieldStdfTypes[field_index]
         if value is None:
             return ""
