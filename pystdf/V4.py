@@ -218,7 +218,7 @@ class Vur(RecordType, metaclass=StdfRecordMeta):
     ('UPD_CNT', 'U1'),
     ('UPD_NAM', 'k0Cn'),
     # VUR_DUMMY is to compatible with the STDF from UF Plus, Jeremy
-    ('VUR_DUMMY', 'U1')
+    # ('VUR_DUMMY', 'U1')
   )
 
 class Mir(RecordType, metaclass=StdfRecordMeta):
@@ -2320,6 +2320,7 @@ class Str(RecordType, metaclass=StdfRecordMeta):
     ('LIM_SPEC','k21U4'),
     ('COND_LST','k20Cn'),
     ('CYCO_CNT','U2'),
+    # ('CYC_OFST', 'k35U4'),
     ('CYC_OFST','k35U8'),
     ('PMR_CNT','U2'),
     ('PMR_INDX','k37U2'),
