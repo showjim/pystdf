@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-
+import io
 import sys
 
 import struct
@@ -142,7 +142,7 @@ class Parser(DataSource):
         else:
             self.inp.seek(0)
         if cpuType == 2:
-            return '<'
+            return '<' #'<'
         else:
             return '>'
 
@@ -156,15 +156,21 @@ class Parser(DataSource):
             while self.eof==0:
                 header = self.readHeader()
                 self.header(header)
+                bakup = self.inp
+                self.inp = io.BytesIO(self.inp.read(header.len))
+
                 if (header.typ, header.sub) in self.recordMap:
+
                     recType = self.recordMap[(header.typ, header.sub)]
                     recParser = self.recordParsers[(header.typ, header.sub)]
                     fields = recParser(self, header, [])
                     if len(fields) < len(recType.columnNames):
                         fields += [None] * (len(recType.columnNames) - len(fields))
                     self.send((recType, fields))
+
                 else:
                     self.inp.read(header.len)
+                self.inp = bakup
                 if count:
                     i += 1
                     if i >= count: break
